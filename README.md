@@ -10,6 +10,8 @@ The variant can be found in the following publication:
 
 Tsatsou, D., Dasiopoulou, S., Kompatsiaris, I., & Mezaris, V. (2014, May). LiFR: a lightweight fuzzy DL reasoner. In European Semantic Web Conference (pp. 263-267). Springer International Publishing. 
 
+The translator uses the [OWL API](https://github.com/owlcs/owlapi). Local version available in /lib, however most recent version of the OWL API *should* work. 
+
 ### LiFR Semantics and Syntax ###
 LiFR initially supported fuzzy DLP (f-DLP) semantics (as seen in the aforementioned publication). f-DLP is the fuzzy extension of [DLP](http://www.cs.man.ac.uk/~horrocks/Publications/download/2003/p117-grosof.pdf), a tractable knowledge representation fragment, closely related to the [OWL 2 RL](http://www.w3.org/TR/owl2-profiles/#OWL_2_RL) proﬁle, that combines classical DLs with Logic Programs (LP), thus combining ontologies with rules.
 
@@ -23,6 +25,8 @@ The fuzzy extension of ![](https://wikimedia.org/api/rest_v1/media/math/render/s
 - Concept Negation (ObjectComplementOf) axioms
 - Existential Quantification (ObjectSomeValuesFrom) axioms (**NOTE**: although supported in the translator, LiFR will reject Existential Quantification Axioms that are outside of DLP, i.e. *C SubClassOf (R ObjectSomeValuesFrom D)*)
 - Universal Quantification (ObjectAllValuesFrom) axioms (**NOTE**: although supported in the translator, LiFR will reject Universal Quantification Axioms that are outside of DLP, i.e. *(R ObjectAllValuesFrom D) SubClassOf C*)
+- Concept Disjointness (DisjointClasses)
+- General Concept Inclusion Axioms
 - Role (Object Property) axioms: 
 	- Implication (SubObjectPropertyOf)
 	- Inverse (InverseObjectProperties) 
