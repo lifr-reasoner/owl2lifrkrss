@@ -21,8 +21,8 @@ The fuzzy extension of ![](https://wikimedia.org/api/rest_v1/media/math/render/s
 - Concept Implication (SubClassOf) axioms
 - Concept Equivalence (EquivalentClasses) axioms
 - Concept Negation (ObjectComplementOf) axioms
-- Existential Quantification (ObjectSomeValuesFrom) axioms (**NOTE**: although supported in the translator, LiFR will reject Existential Quantification Axioms that are outside of DLP, i.e. *C SubClassOf R ObjectSomeValuesFrom D*)
-- Universal Quantification (ObjectAllValuesFrom) axioms (**NOTE**: although supported in the translator, LiFR will reject Universal Quantification Axioms that are outside of DLP, i.e. *R ObjectAllValuesFrom D SubClassOf C*)
+- Existential Quantification (ObjectSomeValuesFrom) axioms (**NOTE**: although supported in the translator, LiFR will reject Existential Quantification Axioms that are outside of DLP, i.e. *C SubClassOf (R ObjectSomeValuesFrom D)*)
+- Universal Quantification (ObjectAllValuesFrom) axioms (**NOTE**: although supported in the translator, LiFR will reject Universal Quantification Axioms that are outside of DLP, i.e. *(R ObjectAllValuesFrom D) SubClassOf C*)
 - Role (Object Property) axioms: 
 	- Implication (SubObjectPropertyOf)
 	- Inverse (InverseObjectProperties) 
