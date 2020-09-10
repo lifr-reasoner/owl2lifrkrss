@@ -20,23 +20,26 @@ Since then, LiFR is extended beyond Horn clauses, since it supports definite cla
 The fuzzy extension of ![](https://wikimedia.org/api/rest_v1/media/math/render/svg/2302a18e269dbecc43c57c0c2aced3bfae15278d)![](https://wikimedia.org/api/rest_v1/media/math/render/svg/19ef4c7b923a5125ac91aa491838a95ee15b804f)![](https://wikimedia.org/api/rest_v1/media/math/render/svg/0e9730a0ada0426927ff64141eb9f505eca132d4)![](https://wikimedia.org/api/rest_v1/media/math/render/svg/4e63ea009de5efbca2fc285b8550daaed577c6b8) <sup>-</sup> (*f*-![](https://wikimedia.org/api/rest_v1/media/math/render/svg/2302a18e269dbecc43c57c0c2aced3bfae15278d)![](https://wikimedia.org/api/rest_v1/media/math/render/svg/19ef4c7b923a5125ac91aa491838a95ee15b804f)![](https://wikimedia.org/api/rest_v1/media/math/render/svg/0e9730a0ada0426927ff64141eb9f505eca132d4)![](https://wikimedia.org/api/rest_v1/media/math/render/svg/4e63ea009de5efbca2fc285b8550daaed577c6b8) <sup>-</sup>) lies in the support of fuzzy assertions, restricted to concepts only, with an added support for weighted concept modifiers, while role assertions are currently treated as crisp with an imposed membership degree of ≥ 1.0 . The crisp operations intersection, union and implication, are extended to fuzzy sets and performed by t-norm, t-conorm and implication functions respectively. The fuzzy set operations of LiFR follow the operators of [Zadeh fuzzy logic](http://www-bisc.cs.berkeley.edu/Zadeh-1965.pdf). 
 
 ## Includes ##
-- Concept Implication (SubClassOf) axioms
-- Concept Equivalence (EquivalentClasses) axioms
-- Concept Negation (ObjectComplementOf) axioms
-- Existential Quantification (ObjectSomeValuesFrom) axioms (**NOTE**: although supported in the translator, LiFR will reject Existential Quantification Axioms that are outside of DLP, i.e. *C SubClassOf (R ObjectSomeValuesFrom D)*)
-- Universal Quantification (ObjectAllValuesFrom) axioms (**NOTE**: although supported in the translator, LiFR will reject Universal Quantification Axioms that are outside of DLP, i.e. *(R ObjectAllValuesFrom D) SubClassOf C*)
-- Concept Disjointness (DisjointClasses)
+- Concept Implication *(SubClassOf)* axioms
+- Concept Equivalence *(EquivalentClasses)* axioms
+- Concept Negation *(ObjectComplementOf)* axioms
+- Existential Quantification *(ObjectSomeValuesFrom)* axioms 
+- Universal Quantification *(ObjectAllValuesFrom)* axioms 
+- Concept Disjointness *(DisjointClasses)*
 - General Concept Inclusion Axioms
-- Role (Object Property) axioms: 
-	- Implication (SubObjectPropertyOf)
-	- Inverse (InverseObjectProperties) 
-	- Domain (ObjectPropertyDomain)
-	- Range (ObjectPropertyRange)
+- Role *(Object Property)* axioms: 
+	- Implication *(SubObjectPropertyOf)*
+	- Inverse *(InverseObjectProperties)*
+	- Domain *(ObjectPropertyDomain)*
+	- Range *(ObjectPropertyRange)*
+	- Transitive *(TransitiveObjectProperty)*
+	- Symmetric *(SymmetricObjectProperty)*
 
+**NOTE**: although supported in the translator, LiFR will reject Existential Quantification and Universal Quantification axioms that are outside of DLP, i.e.:
+- *C \sqsubseteq \exists R.D* or *C SubClassOf (R ObjectSomeValuesFrom D)* 
+- *(R ObjectAllValuesFrom D) SubClassOf C*)
 
 ## TODO ##
-- Fix transitive role - *Problem in OWL API - local version. Not recognizing transitive roles (rather, assigning 'transitive' to all roles)*
-- Fix symmetric role - *Problem in OWL API - local version. Not recognizing symmetric roles (rather, assigning 'symmetric' to all roles)*
 - Add Concept (Class) assertions
 - Add Role (Object Property) assertions
 - Add Weight modifiers

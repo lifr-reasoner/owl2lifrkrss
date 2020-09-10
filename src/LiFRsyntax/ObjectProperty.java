@@ -13,6 +13,8 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 
 public class ObjectProperty {
 	
@@ -52,8 +54,8 @@ public class ObjectProperty {
 		
 		//******(ROLE r :PARENT sp :INVERSE si :TRANSITIVE :SYMMETRIC)******
 		
-		boolean symmetric = false; //role.isSymmetric(ontology);
-		boolean transitive = false; //role.isTransitive(ontology);
+		Set<OWLSymmetricObjectPropertyAxiom> symmetrics = ontology.getSymmetricObjectPropertyAxioms(role);
+		Set<OWLTransitiveObjectPropertyAxiom> transitives = ontology.getTransitiveObjectPropertyAxioms(role);
 		
 		Set<OWLSubObjectPropertyOfAxiom> supers = ontology.getObjectSubPropertyAxiomsForSuperProperty(role);
 		Set<OWLInverseObjectPropertiesAxiom> inverses = ontology.getInverseObjectPropertyAxioms(role);
@@ -91,13 +93,26 @@ public class ObjectProperty {
 			}
 		}
 		
-		if(transitive) {
-			krssroles += ("(ROLE " + role.toStringID() + " :TRANSITIVE)\n");
+		if(transitives.size() > 0) {
+			for(Iterator<OWLTransitiveObjectPropertyAxiom> iter = transitives.iterator(); iter.hasNext();) {
+				OWLTransitiveObjectPropertyAxiom axiom = iter.next();
+				
+				OWLObjectProperty trans = axiom.getProperty().asOWLObjectProperty();
+				
+				krssroles += ("(ROLE " + trans.toStringID() + " :TRANSITIVE)\n");
+			}
 		}
 		
-		if(symmetric) {
-			krssroles += ("(ROLE " + role.toStringID() + " :SYMMETRIC)\n");
+		if(symmetrics.size() > 0) {
+			for(Iterator<OWLSymmetricObjectPropertyAxiom> iter = symmetrics.iterator(); iter.hasNext();) {
+				OWLSymmetricObjectPropertyAxiom axiom = iter.next();
+				
+				OWLObjectProperty sym = axiom.getProperty().asOWLObjectProperty();
+				
+				krssroles += ("(ROLE " + sym.toStringID() + " :SYMMETRIC)\n");
+			}
 		}
+		
 		if(domainrange) {
 			krssroles += translateDomainRange(role, ontology);
 		}
