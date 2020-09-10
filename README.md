@@ -35,8 +35,8 @@ The fuzzy extension of ![](https://wikimedia.org/api/rest_v1/media/math/render/s
 
 
 ## TODO ##
-- Fix transitive role
-- Fix symmetric role
+- Fix transitive role - *Problem in OWL API - local version. Not recognizing transitive roles (rather, assigning 'transitive' to all roles)*
+- Fix symmetric role - *Problem in OWL API - local version. Not recognizing symmetric roles (rather, assigning 'symmetric' to all roles)*
 - Add Concept (Class) assertions
 - Add Role (Object Property) assertions
 - Add Weight modifiers
