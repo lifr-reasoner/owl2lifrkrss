@@ -78,9 +78,8 @@ public class LiFRsyntaxOWLtoKRSS {
 			String krssRoles = "";
 			
 			if(roles.size() > 0) {
-			//boolean: take into account domain/range
 				krssRoles = ObjectProperty.translateRoles(roles, ontology, domainrange);
-				System.out.println(krssRoles);
+//				System.out.println(krssRoles);
 			}
 			
 			if(omitIRIprefix) {

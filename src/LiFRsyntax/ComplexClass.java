@@ -1,5 +1,6 @@
 package LiFRsyntax;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -64,12 +65,69 @@ public class ComplexClass {
 			}
 		}else if(axiomtype.equals(ClassExpressionType.OBJECT_INTERSETION_OF)) {
 			OWLObjectIntersectionOf andcoxclass = (OWLObjectIntersectionOf) axiomclass;
-			Set<OWLClass> andclasses = andcoxclass.getClassesInSignature();
-			if(andclasses.size() > 1) {
+			Set<OWLClassExpression> conjuncts = andcoxclass.asConjunctSet();
+			boolean complexconjunct = false;
+			ArrayList<String> finalconjuncts = new ArrayList<String>();
+			
+//			if(andclasses.size() > 1) {
+			if(conjuncts.size() > 1) {
 				complex = "(AND ";
-				for(Iterator<OWLClass> iter = andclasses.iterator(); iter.hasNext();) {
-					OWLClass plainclass = iter.next();
-					complex += (PlainClass.processPlainClass(plainclass) + " ");
+				
+				for(Iterator<OWLClassExpression> iter = conjuncts.iterator(); iter.hasNext();) {
+					OWLClassExpression expression = iter.next();
+					ClassExpressionType type = expression.getClassExpressionType();
+					if(type.equals(ClassExpressionType.OBJECT_SOME_VALUES_FROM)) {
+						
+						String somecomplex = "";
+						
+						OWLObjectSomeValuesFrom somecoxclass = (OWLObjectSomeValuesFrom) expression;
+						Set<OWLClass> someclasses = somecoxclass.getClassesInSignature();
+						Set<OWLObjectProperty> somerole = somecoxclass.getObjectPropertiesInSignature();
+						
+						//only one role/object property assumed
+						String outrole = somerole.iterator().next().asOWLObjectProperty().toStringID();
+						if(someclasses.size() > 1) {
+							somecomplex = "(SOME " + outrole + " ";
+							
+							OWLClassExpression morecomplex = somecoxclass.getFiller();
+							ClassExpressionType moretype = morecomplex.getClassExpressionType();
+//							System.out.println(morecomplex.toString());
+							
+							somecomplex += processComplexClass(morecomplex, moretype);
+							
+							somecomplex = somecomplex.trim() + ")";
+						}else {
+							String outclass = PlainClass.processPlainClass(someclasses.iterator().next().asOWLClass());
+							somecomplex = "(SOME " + outrole + " " + outclass + ")";
+						}
+						
+						finalconjuncts.add(somecomplex);
+						
+					}else if(type.equals(ClassExpressionType.OWL_CLASS)) {
+						String plainclass = PlainClass.processPlainClass(expression);
+						finalconjuncts.add(plainclass);
+					}else {
+						Set<OWLClass> andclasses = andcoxclass.getClassesInSignature();
+						
+						for(Iterator<OWLClass> iterunknown = andclasses.iterator(); iter.hasNext();) {
+							OWLClass plainclass = iterunknown.next();
+							finalconjuncts.add(PlainClass.processPlainClass(plainclass));
+						}
+					}
+				}
+				
+//				Set<OWLClass> andclasses = andcoxclass.getClassesInSignature();
+//				}
+//				
+//				for(Iterator<OWLClass> iter = andclasses.iterator(); iter.hasNext();) {
+//					OWLClass plainclass = iter.next();
+//					complex += (PlainClass.processPlainClass(plainclass) + " ");
+//				}
+				
+				for(Iterator<String> iter = finalconjuncts.iterator(); iter.hasNext();) {
+					String conj = iter.next();
+					
+					complex += (conj + " ");
 				}
 				complex = complex.trim() + ")";
 			}else {
