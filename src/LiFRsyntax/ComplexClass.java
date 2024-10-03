@@ -142,7 +142,7 @@ public class ComplexClass {
 					OWLClass plainclass = iter.next();
 					complex += (PlainClass.processPlainClass(plainclass) + " ");
 				}
-				complex = complex.trim() + ")\n";
+				complex = complex.trim() + ")";
 			}else {
 				//TODO wtf?
 			}
